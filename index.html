@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Button Trigger Ajax</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+ 
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <button data-search="Dog">Dog</button>
+    <button data-search="Cat">Cat</button>
+    <button data-search="Rabbit">Rabbit</button>
+    <button data-search="Unicorn">Unicorn</button>
+    <button data-search="Rhino">Rhino</button>
+    <button data-search="Cows">Cows</button>
+
+    <button data-search="Fast Cars">Sports Cars</button>
+
+
+
+ 
+    <div id="GIFArea"></div>
+
+    <script type="text/javascript">
+        $('button').on('click',function(){
+            var x = $(this).data("search");
+           
+
+            var queryUrl  = `https://api.giphy.com/v1/gifs/search?q=`+x+`&api_key=djALz2kux6YRp13Gfq1icR5DPV7gnwxe&limit=10`;
+            console.log(queryUrl);
+
+            $.ajax({url:queryUrl,method:'GET'})
+            .done(function(response){
+                console.log(response);
+                for(var i=0; i<response.data.length;i++){
+                $('#GIFArea').prepend("<p>Rating: "+response.data[i].rating+"</p>");
+                $('#GIFArea').prepend("<img src='"+response.data[i].images.downsized.url+"'>");
+
+                }
+               
+            })
+        })
+        
+    </script>
+
+
+</body>
+</html>
